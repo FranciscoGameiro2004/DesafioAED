@@ -15,10 +15,11 @@ def coodernadas(x, y, lista, valor, listaLinhas):
     lista.insert(y, listatemporaria)
     
     # Para que não existam sobreposições, será feita uma alteração do da linha a ocupar baseando na coluna.
-    # Será feita uma subtração entre o valor da linha utilizada e 1.
+    # Será feita uma subtração entre o valor da linha utilizada e 1 se esse valor não for igual a 0.
     linhaUsada = listaLinhas[x]
-    del listaLinhas[x]
-    listaLinhas.insert(x,linhaUsada-1)
+    if linhaUsada != 0:
+        del listaLinhas[x]
+        listaLinhas.insert(x,linhaUsada-1)
 
 
 tabuleiro = [[0,0,0,0,0,0,0],
