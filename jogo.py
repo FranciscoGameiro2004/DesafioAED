@@ -52,7 +52,7 @@ while True:
                     for j in range(len(tabuleiro[i])):
                         print(tabuleiro[i][j], end=' | ')
                     print()
-                lol = int(input())
-                coodernadas(lol, linhaLivre[lol], tabuleiro, 1, linhaLivre)
+                colunaEscolhida = int(input())
+                coodernadas(colunaEscolhida, linhaLivre[colunaEscolhida], tabuleiro, 1, linhaLivre)
     if sair == 1:
         break
