@@ -1,9 +1,12 @@
 from os import system
 
 def umOUdois(var):
+    """
+    Esta função à medida que for acionada vai retornando os valores 1 e 2, de forma alternada.
+    """
     if var == 1:
         var = 2
-    else:
+    elif var == 2:
         var = 1
     return var
     
@@ -51,10 +54,10 @@ while True:
         system('cls')
         print('\t4 EM LINHA\n1 - Jogar\n0 - Sair')
         opcao = int(input('\n\nOpção: '))
-        if opcao == 0:
+        if opcao == 0: # Se for acionada a opção 0, então a variável sair terá como valor 1 e será feito um break ao loop while
             sair = 1
             break
-        elif opcao == 1:
+        elif opcao == 1: # Se for acionada a opção 1, então será acionado um loop while onde o jogo será iniciado.
             while True:
                 jogador = umOUdois(jogador)
                 system('cls')
@@ -64,6 +67,6 @@ while True:
                         print(tabuleiro[i][j], end=' | ')
                     print()
                 colunaEscolhida = int(input())
-                coodernadas(colunaEscolhida, linhaLivre[colunaEscolhida], tabuleiro, jogador, linhaLivre)
+                coodernadas(colunaEscolhida-1, linhaLivre[colunaEscolhida-1], tabuleiro, jogador, linhaLivre)
     if sair == 1:
         break
