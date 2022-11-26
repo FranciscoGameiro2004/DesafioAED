@@ -13,7 +13,7 @@ def umOUdois(var):
 
 def coodernadas(x, y, lista, valor, listaLinhas):
     """
-    Esta função permite a modificação de um elemento de uma dada lista bidimensional para um determinado valor.
+    Esta função altera elemento de uma dada lista bidimensional para um determinado valor.
     """
     if listaLinhas[x] != -1:
         listatemporaria = lista[y].copy() # Criação de uma lista temporária que é uma cópia da linha y da lista a alterar.
@@ -33,6 +33,26 @@ def coodernadas(x, y, lista, valor, listaLinhas):
             del listaLinhas[x]
             listaLinhas.insert(x,linhaUsada-1)
 
+def existeVitoria(x, y, lista, valorAlvo):
+    """
+    Esta função verifica se um jogador que tenha acabado de colocar uma peça consegue, de acordo com as regras do
+    "4 em Linha", uma vitória ou não.
+    """
+
+    vitoria = False
+
+    for i in range(4):
+        if lista[y][i] == valorAlvo and lista[y][i + 1] == valorAlvo and lista[y][i + 2] == valorAlvo and lista[y][i + 3] == valorAlvo:
+            vitoria = True
+    
+    for i in range(3):
+        if lista[i][x] == valorAlvo and lista[i + 1][x] == valorAlvo and lista[i + 2][x] == valorAlvo and lista[i + 3][x] == valorAlvo:
+            vitoria = True
+    
+    
+
+    return vitoria
+
 
 tabuleiro = [[0,0,0,0,0,0,0],
              [0,0,0,0,0,0,0],
@@ -45,6 +65,7 @@ linhaLivre = [5,5,5,5,5,5,5] # Determina a última linha lívre de cada coluna
 jogador = 1
 
 sair = 0
+vence = False
 while True:
     erro = 0
     while erro == 0:
@@ -58,7 +79,14 @@ while True:
             sair = 1
             break
         elif opcao == 1: # Se for acionada a opção 1, então será acionado um loop while onde o jogo será iniciado.
+            colunaEscolhida = -1
             while True:
+                if colunaEscolhida != -1:
+                    vence = existeVitoria(colunaEscolhida-1, linhaLivre[colunaEscolhida-1] + 1, tabuleiro, jogador)
+
+                    if vence == True:
+                        break
+
                 jogador = umOUdois(jogador)
                 system('cls')
                 for i in range(len(tabuleiro)):
@@ -68,5 +96,14 @@ while True:
                     print()
                 colunaEscolhida = int(input())
                 coodernadas(colunaEscolhida-1, linhaLivre[colunaEscolhida-1], tabuleiro, jogador, linhaLivre)
+
+            system('cls')    
+            print('Jogador {} vence!'.format(jogador))
+            for i in range(len(tabuleiro)):
+                    print('-'*27)
+                    for j in range(len(tabuleiro[i])):
+                        print(tabuleiro[i][j], end=' | ')
+                    print()
+            input('Prima ENTER para continuar. ')
     if sair == 1:
         break
