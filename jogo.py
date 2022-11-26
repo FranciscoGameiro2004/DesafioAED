@@ -11,7 +11,7 @@ def umOUdois(var):
     return var
     
 
-def coodernadas(x, y, lista, valor, listaLinhas):
+def coodernadas(x, y, lista, valor, listaLinhas=None):
     """
     Esta função altera elemento de uma dada lista bidimensional para um determinado valor.
     """
@@ -52,6 +52,17 @@ def existeVitoria(x, y, lista, valorAlvo):
     
 
     return vitoria
+
+def reiniciar(lista, listaLinhas):
+    """
+    Esta função reinicia as listas pedidas nos parâmetros para os seus valores padrão. 
+    """
+    for i in range(len(lista)):
+        for j in range(len(lista[i])):
+            lista[i][j] = 0
+    
+    for i in range(len(listaLinhas)):
+        listaLinhas[i] = 5
 
 
 tabuleiro = [[0,0,0,0,0,0,0],
@@ -105,5 +116,6 @@ while True:
                         print(tabuleiro[i][j], end=' | ')
                     print()
             input('Prima ENTER para continuar. ')
+            reiniciar(tabuleiro, linhaLivre)
     if sair == 1:
         break
