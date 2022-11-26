@@ -1,4 +1,4 @@
-from os import system
+import os
 
 def umOUdois(var):
     """
@@ -83,7 +83,7 @@ while True:
         """
         Esta é a tela inicial do jogo. Nela, o utilizador poderá escolher uma das opções.
         """
-        system('cls')
+        os.system('cls')
         print('\t4 EM LINHA\n1 - Jogar\n0 - Sair')
         opcao = int(input('\n\nOpção: '))
         if opcao == 0: # Se for acionada a opção 0, então a variável sair terá como valor 1 e será feito um break ao loop while
@@ -99,7 +99,7 @@ while True:
                         break
 
                 jogador = umOUdois(jogador)
-                system('cls')
+                os.system('cls')
                 for i in range(len(tabuleiro)):
                     print('-'*27)
                     for j in range(len(tabuleiro[i])):
@@ -108,7 +108,7 @@ while True:
                 colunaEscolhida = int(input())
                 coodernadas(colunaEscolhida-1, linhaLivre[colunaEscolhida-1], tabuleiro, jogador, linhaLivre)
 
-            system('cls')    
+            os.system('cls')    
             print('Jogador {} vence!'.format(jogador))
             for i in range(len(tabuleiro)):
                     print('-'*27)
