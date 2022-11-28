@@ -102,6 +102,7 @@ def gerarTabuleiro(lista):
         for j in range(len(lista[i])):
             print(lista[i][j], end=' | ')
         print()
+    print('-'*27)
 
 tabuleiro = [[0,0,0,0,0,0,0],
              [0,0,0,0,0,0,0],
