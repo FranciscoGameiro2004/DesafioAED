@@ -96,6 +96,12 @@ def reiniciar(lista, listaLinhas):
     for i in range(len(listaLinhas)):
         listaLinhas[i] = 5
 
+def gerarTabuleiro(lista):
+    for i in range(len(lista)):
+        print('-'*27)
+        for j in range(len(lista[i])):
+            print(lista[i][j], end=' | ')
+        print()
 
 tabuleiro = [[0,0,0,0,0,0,0],
              [0,0,0,0,0,0,0],
@@ -132,21 +138,13 @@ while True:
 
                 jogador = umOUdois(jogador)
                 os.system('cls')
-                for i in range(len(tabuleiro)):
-                    print('-'*27)
-                    for j in range(len(tabuleiro[i])):
-                        print(tabuleiro[i][j], end=' | ')
-                    print()
+                gerarTabuleiro(tabuleiro)
                 colunaEscolhida = int(input())
                 coodernadas(colunaEscolhida-1, linhaLivre[colunaEscolhida-1], tabuleiro, jogador, linhaLivre)
 
             os.system('cls')    
             print('Jogador {} vence!'.format(jogador))
-            for i in range(len(tabuleiro)):
-                    print('-'*27)
-                    for j in range(len(tabuleiro[i])):
-                        print(tabuleiro[i][j], end=' | ')
-                    print()
+            gerarTabuleiro(tabuleiro)
             input('Prima ENTER para continuar. ')
             reiniciar(tabuleiro, linhaLivre)
     if sair == 1:
