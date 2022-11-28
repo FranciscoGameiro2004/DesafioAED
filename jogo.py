@@ -38,7 +38,10 @@ def existeVitoria(x, y, lista, valorAlvo):
     Esta função verifica se um jogador que tenha acabado de colocar uma peça consegue, de acordo com as regras do
     "4 em Linha", uma vitória ou não.
     """
+    import math
 
+    pontoInicialX = x
+    pontoInicialY = y
     vitoria = False
 
     for i in range(4):
@@ -48,8 +51,37 @@ def existeVitoria(x, y, lista, valorAlvo):
     for i in range(3):
         if lista[i][x] == valorAlvo and lista[i + 1][x] == valorAlvo and lista[i + 2][x] == valorAlvo and lista[i + 3][x] == valorAlvo:
             vitoria = True
+
+    for i in range(7):
+        if pontoInicialX != 0 and pontoInicialY != 0:
+            pontoInicialX -= 1
+            pontoInicialY -= 1
+        else:
+            break
     
+    for i in range(3):
+        try:
+            if lista[pontoInicialY + i][pontoInicialX + i] == valorAlvo and lista[pontoInicialY + i + 1][pontoInicialX + i + 1] == valorAlvo and lista[pontoInicialY + i + 2][pontoInicialX + i + 2] == valorAlvo and lista[pontoInicialY + i + 3][pontoInicialX + i + 3] == valorAlvo:
+                vitoria = True
+        except:
+            ()
     
+    pontoInicialX = x
+    pontoInicialY = y
+
+    for i in range(7):
+        if pontoInicialX != 0 and pontoInicialY != 5:
+            pontoInicialX -= 1
+            pontoInicialY += 1
+        else:
+            break
+    
+    for i in range(3):
+        try:
+            if lista[pontoInicialY - i][pontoInicialX + i] == valorAlvo and lista[pontoInicialY - i - 1][pontoInicialX + i + 1] == valorAlvo and lista[pontoInicialY - i - 2][pontoInicialX + i + 2] == valorAlvo and lista[pontoInicialY - i - 3][pontoInicialX + i + 3] == valorAlvo:
+                vitoria = True
+        except:
+            ()
 
     return vitoria
 
