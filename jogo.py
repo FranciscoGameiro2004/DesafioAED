@@ -154,14 +154,16 @@ while True:
                         empate = existeEmpate(tabuleiro)
                         if empate == True:
                             break
-
+                
+                if linhaLivre[colunaEscolhida-1] != -1:
+                    jogador = umOUdois(jogador)
                 os.system('cls')
                 print('Jogador {}'.format(jogador))
                 gerarTabuleiro(tabuleiro)
                 colunaEscolhida = int(input())
-                if linhaLivre[colunaEscolhida-1] != -1:
-                    coodernadas(colunaEscolhida-1, linhaLivre[colunaEscolhida-1], tabuleiro, jogador, linhaLivre)
-                    jogador = umOUdois(jogador)
+                coodernadas(colunaEscolhida-1, linhaLivre[colunaEscolhida-1], tabuleiro, jogador, linhaLivre)
+                
+                    
 
             os.system('cls')
             if vence == True:    
