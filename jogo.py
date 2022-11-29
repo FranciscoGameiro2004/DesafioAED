@@ -104,6 +104,20 @@ def gerarTabuleiro(lista):
         print()
     print('-'*27)
 
+def existeEmpate(lista):
+    """
+    Esta função determina se houve empate ou não.
+    """
+    houveEmpate = False
+    nLinhasEmpatadas = 0
+    for i in range(len(lista)):
+        if 0 not in lista[i]:
+            nLinhasEmpatadas += 1
+    if nLinhasEmpatadas == 6:
+        houveEmpate = True
+    
+    return houveEmpate
+
 tabuleiro = [[0,0,0,0,0,0,0],
              [0,0,0,0,0,0,0],
              [0,0,0,0,0,0,0],
@@ -136,6 +150,10 @@ while True:
 
                     if vence == True:
                         break
+                    else:
+                        empate = existeEmpate(tabuleiro)
+                        if empate == True:
+                            break
 
                 jogador = umOUdois(jogador)
                 os.system('cls')
@@ -143,8 +161,11 @@ while True:
                 colunaEscolhida = int(input())
                 coodernadas(colunaEscolhida-1, linhaLivre[colunaEscolhida-1], tabuleiro, jogador, linhaLivre)
 
-            os.system('cls')    
-            print('Jogador {} vence!'.format(jogador))
+            os.system('cls')
+            if vence == True:    
+                print('Jogador {} vence!'.format(jogador))
+            elif empate ==  True:
+                print('Houve um empate.')
             gerarTabuleiro(tabuleiro)
             input('Prima ENTER para continuar. ')
             reiniciar(tabuleiro, linhaLivre)
