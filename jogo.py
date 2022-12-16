@@ -118,6 +118,35 @@ def existeEmpate(lista):
     
     return houveEmpate
 
+def menu():
+    """
+    Esta é a tela inicial do jogo. Nela, o utilizador poderá escolher uma das opções.
+    """
+    from pressAnyKey import optionKey
+    from time import sleep
+
+    opcaoAtual = 1
+    opcaoSelecionada = 1
+    select = 0
+
+    while select == 0:
+        opcaoSelecionada = opcaoAtual
+        if opcaoAtual == 1:
+            os.system('cls')
+            print('\t4 EM LINHA\n-> 1 - Jogar\n0 - Sair')
+            opcaoAtual, select = optionKey('ctrl direito', 0, 'seta abaixo')
+            sleep(0.05)
+        elif opcaoAtual == 0:
+            os.system('cls')
+            print('\t4 EM LINHA\n1 - Jogar\n-> 0 - Sair')
+            opcaoAtual, select = optionKey('ctrl direito', 1, 'seta acima')
+            sleep(0.05)
+    
+
+    return opcaoSelecionada
+
+
+
 tabuleiro = [[0,0,0,0,0,0,0],
              [0,0,0,0,0,0,0],
              [0,0,0,0,0,0,0],
@@ -133,12 +162,7 @@ vence = False
 while True:
     erro = 0
     while erro == 0:
-        """
-        Esta é a tela inicial do jogo. Nela, o utilizador poderá escolher uma das opções.
-        """
-        os.system('cls')
-        print('\t4 EM LINHA\n1 - Jogar\n0 - Sair')
-        opcao = int(input('\n\nOpção: '))
+        opcao = menu()
         if opcao == 0: # Se for acionada a opção 0, então a variável sair terá como valor 1 e será feito um break ao loop while
             sair = 1
             break
