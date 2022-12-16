@@ -45,12 +45,18 @@ def existeVitoria(x, y, lista, valorAlvo):
     vitoria = False
 
     for i in range(4):
-        if lista[y][i] == valorAlvo and lista[y][i + 1] == valorAlvo and lista[y][i + 2] == valorAlvo and lista[y][i + 3] == valorAlvo:
-            vitoria = True
+        try:
+            if lista[y][i] == valorAlvo and lista[y][i + 1] == valorAlvo and lista[y][i + 2] == valorAlvo and lista[y][i + 3] == valorAlvo:
+                vitoria = True
+        except:
+            ()
     
     for i in range(3):
-        if lista[i][x] == valorAlvo and lista[i + 1][x] == valorAlvo and lista[i + 2][x] == valorAlvo and lista[i + 3][x] == valorAlvo:
-            vitoria = True
+        try:
+            if lista[i][x] == valorAlvo and lista[i + 1][x] == valorAlvo and lista[i + 2][x] == valorAlvo and lista[i + 3][x] == valorAlvo:
+                vitoria = True
+        except:
+            ()
 
     for i in range(7):
         if pontoInicialX != 0 and pontoInicialY != 0:
@@ -96,11 +102,14 @@ def reiniciar(lista, listaLinhas):
     for i in range(len(listaLinhas)):
         listaLinhas[i] = 5
 
-def gerarTabuleiro(lista):
+def gerarTabuleiro(lista, colunaDestacada=None, linhaDestacada=None):
     for i in range(len(lista)):
         print('-'*27)
         for j in range(len(lista[i])):
-            print(lista[i][j], end=' | ')
+            if (j != colunaDestacada or i != linhaDestacada) or (colunaDestacada == None and linhaDestacada == None):
+                print(lista[i][j], end=' | ')
+            else:
+                print('S', end=' | ')
         print()
     print('-'*27)
 
@@ -145,6 +154,46 @@ def menu():
 
     return opcaoSelecionada
 
+def selecionarColuna(lista, listaColunas, nJogador):
+    """
+    Esta é a tela inicial do jogo. Nela, o utilizador poderá escolher uma das opções.
+    """
+    from pressAnyKey import optionKey
+    from time import sleep
+
+    opcaoAtual = int(0)
+    opcaoSelecionada = int(0)
+    select = int(0)
+    colunaAtual = int(0)
+
+    while True:
+
+        opcaoSelecionada = opcaoAtual
+        os.system('cls')
+        print('Jogador {}'.format(nJogador))
+        gerarTabuleiro(lista, colunaAtual, listaColunas[colunaAtual])
+        opcaoAtual, select = optionKey('ctrl direito', 1, 'seta à direita', 0, 'seta à esquerda')
+        sleep(0.5)
+
+        if select == 0:
+            if opcaoAtual == 1:
+                colunaAtual += 1
+                while listaColunas[colunaAtual] < 0:
+                    colunaAtual += 1
+            else:
+                colunaAtual -= 1
+                while listaColunas[colunaAtual] < 0:
+                    colunaAtual -= 1
+
+            if colunaAtual < 0:
+                colunaAtual = 0
+            elif colunaAtual > 6:
+                colunaAtual = 6
+        else:
+            break
+    
+
+    return colunaAtual
 
 
 tabuleiro = [[0,0,0,0,0,0,0],
@@ -155,7 +204,7 @@ tabuleiro = [[0,0,0,0,0,0,0],
              [0,0,0,0,0,0,0]] # Configuração do tabuleiro do 4 em linha
 
 linhaLivre = [5,5,5,5,5,5,5] # Determina a última linha lívre de cada coluna
-jogador = 1
+jogador = 2
 
 sair = 0
 vence = False
@@ -170,7 +219,7 @@ while True:
             colunaEscolhida = -1
             while True:
                 if colunaEscolhida != -1:
-                    vence = existeVitoria(colunaEscolhida-1, linhaLivre[colunaEscolhida-1] + 1, tabuleiro, jogador)
+                    vence = existeVitoria(colunaEscolhida, linhaLivre[colunaEscolhida] + 1, tabuleiro, jogador)
 
                     if vence == True:
                         break
@@ -179,13 +228,11 @@ while True:
                         if empate == True:
                             break
                 
-                if linhaLivre[colunaEscolhida-1] != -1:
-                    jogador = umOUdois(jogador)
+                jogador = umOUdois(jogador)
                 os.system('cls')
                 print('Jogador {}'.format(jogador))
-                gerarTabuleiro(tabuleiro)
-                colunaEscolhida = int(input())
-                coodernadas(colunaEscolhida-1, linhaLivre[colunaEscolhida-1], tabuleiro, jogador, linhaLivre)
+                colunaEscolhida = selecionarColuna(tabuleiro, linhaLivre, jogador)
+                coodernadas(colunaEscolhida, linhaLivre[colunaEscolhida], tabuleiro, jogador, linhaLivre)
                 
                     
 
@@ -197,5 +244,6 @@ while True:
             gerarTabuleiro(tabuleiro)
             input('Prima ENTER para continuar. ')
             reiniciar(tabuleiro, linhaLivre)
+            jogador = 2
     if sair == 1:
         break
