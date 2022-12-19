@@ -1,4 +1,13 @@
 import os
+from colorama import Fore, Back, Style
+from pressAnyKey import optionKey
+from time import sleep
+
+try:
+    import vlc
+    existeVLC = True
+except:
+    existeVLC = False
 
 def umOUdois(var):
     """
@@ -107,9 +116,14 @@ def gerarTabuleiro(lista, colunaDestacada=None, linhaDestacada=None):
         print('-'*27)
         for j in range(len(lista[i])):
             if (j != colunaDestacada or i != linhaDestacada) or (colunaDestacada == None and linhaDestacada == None):
-                print(lista[i][j], end=' | ')
+                if lista[i][j] == 1:
+                    print(Fore.RED + str(lista[i][j]) + Style.RESET_ALL, end=' | ')
+                elif lista[i][j] == 2:
+                    print(Fore.YELLOW + str(lista[i][j]) + Style.RESET_ALL, end=' | ')
+                else:
+                    print(Fore.BLACK + str(lista[i][j]) + Style.RESET_ALL, end=' | ')
             else:
-                print('S', end=' | ')
+                print(Back.WHITE + Fore.WHITE + ' ' + Back.RESET, end=' | ')
         print()
     print('-'*27)
 
@@ -144,12 +158,12 @@ def menu():
             os.system('cls')
             print('\t4 EM LINHA\n-> 1 - Jogar\n0 - Sair')
             opcaoAtual, select = optionKey('ctrl direito', 0, 'seta abaixo')
-            sleep(0.05)
+            sleep(0.1)
         elif opcaoAtual == 0:
             os.system('cls')
             print('\t4 EM LINHA\n1 - Jogar\n-> 0 - Sair')
             opcaoAtual, select = optionKey('ctrl direito', 1, 'seta acima')
-            sleep(0.05)
+            sleep(0.1)
     
 
     return opcaoSelecionada
@@ -170,10 +184,13 @@ def selecionarColuna(lista, listaColunas, nJogador):
 
         opcaoSelecionada = opcaoAtual
         os.system('cls')
-        print('Jogador {}'.format(nJogador))
+        if nJogador == 1:
+            print('Jogador ' + Fore.RED + '{}'.format(nJogador) + Fore.RESET)
+        else:
+            print('Jogador' + Fore.YELLOW + '{}'.format(nJogador) + Fore.RESET)
         gerarTabuleiro(lista, colunaAtual, listaColunas[colunaAtual])
         opcaoAtual, select = optionKey('ctrl direito', 1, 'seta à direita', 0, 'seta à esquerda')
-        sleep(0.5)
+        sleep(0.25)
 
         if select == 0:
             if opcaoAtual == 1:
@@ -195,7 +212,6 @@ def selecionarColuna(lista, listaColunas, nJogador):
 
     return colunaAtual
 
-
 tabuleiro = [[0,0,0,0,0,0,0],
              [0,0,0,0,0,0,0],
              [0,0,0,0,0,0,0],
@@ -204,10 +220,24 @@ tabuleiro = [[0,0,0,0,0,0,0],
              [0,0,0,0,0,0,0]] # Configuração do tabuleiro do 4 em linha
 
 linhaLivre = [5,5,5,5,5,5,5] # Determina a última linha lívre de cada coluna
+
+coodernadasLinha = [[0,0],[0,0],[0,0],[0,0]]
+
 jogador = 2
 
 sair = 0
 vence = False
+
+if existeVLC == False:
+    select = 0
+    while select == 0:
+        os.system('cls')
+        print('\tAtenção!\nPara que o programa tenha o som, é necessário que o programa VLC esteja instalado no seu computador.\nLink para instalar o VLC: https://get.videolan.org/vlc/3.0.18/win64/vlc-3.0.18-win64.exe#google_vignette\n\nPressione CTRL para continuar')
+        select = optionKey('ctrl direito')
+        sleep(0.25)
+        
+    
+
 while True:
     erro = 0
     while erro == 0:

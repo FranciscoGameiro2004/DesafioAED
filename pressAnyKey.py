@@ -1,7 +1,7 @@
 import os
 from time import sleep
 
-def optionKey(triggerKey, optionOne, keyOne, optionTwo=None, keyTwo=None):
+def optionKey(triggerKey, optionOne=None, keyOne=None, optionTwo=None, keyTwo=None):
     try:
         import keyboard
     except:
@@ -13,9 +13,10 @@ def optionKey(triggerKey, optionOne, keyOne, optionTwo=None, keyTwo=None):
     trigger = False
     
     while True:
-            if keyboard.is_pressed(keyOne) == True:
-                option = optionOne
-                return option, trigger
+            if optionOne != None and keyOne !=None:
+                if keyboard.is_pressed(keyOne) == True:
+                    option = optionOne
+                    return option, trigger
             if keyboard.is_pressed(triggerKey) == True:
                 trigger = True
                 return option, trigger
