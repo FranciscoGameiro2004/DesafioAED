@@ -14,9 +14,9 @@ try:
 
     import vlc
     
-    optionSound= vlc.MediaPlayer('audio\option.wav')
-    selectSound = vlc.MediaPlayer('audio\select.wav')
-    victorySound = vlc.MediaPlayer('audio\victory.wav')
+    optionSound= vlc.MediaPlayer('audio\\option.wav')
+    selectSound = vlc.MediaPlayer('audio\\select.wav')
+    victorySound = vlc.MediaPlayer('audio\\victory.wav')
 
     existeVLC = True
     somAtivo = True
@@ -152,6 +152,10 @@ def reiniciar(lista, listaLinhas):
     nomeJogador.clear()
 
 def gerarTabuleiro(lista, colunaDestacada=None, linhaDestacada=None, listaCoodernadas=[]):
+    """
+    Esta função faz gerar um tabuleiro de 4 em linha.
+    """
+
     for i in range(len(lista)):
         print(Back.BLUE + ' '*37 + Style.RESET_ALL)
         print(Back.BLUE + '  ' + Style.RESET_ALL, end='' + ' ')
@@ -214,11 +218,14 @@ def menu():
                 else:
                     textoOpcao3 = 'Ativar som'
             else:
-                textoOpcao3 = Fore.RED + 'PARA ATIVAR O SOM, É NECESSÁRIO INSTALAR VLC' + Style.RESET_ALL
+                textoOpcao3 = Back.RED + 'PARA ATIVAR O SOM, É NECESSÁRIO INSTALAR VLC' + Style.RESET_ALL
 
             try:
                 #Nota 1
                 if somAtivo == True:
+                    '''
+                    #Nota 3: Se 'somAtivo' for True, então o som será tocado ou parado.
+                    '''
                     optionSound.stop()
             except:
                     ()
@@ -226,6 +233,7 @@ def menu():
                 try:
                     #Nota 1
                     if somAtivo == True:
+                        #Nota 3
                         optionSound.play()
                 except:
                     ()
@@ -238,6 +246,7 @@ def menu():
                 try:
                     #Nota 1
                     if somAtivo == True:
+                        #Nota 3
                         optionSound.play()
                 except:
                     ()
@@ -250,6 +259,7 @@ def menu():
                 try:
                     #Nota 1
                     if somAtivo == True:
+                        #Nota 3
                         optionSound.play()
                 except:
                     ()
@@ -269,6 +279,7 @@ def menu():
     try:
         #Nota 1
         if somAtivo == True:
+            #Nota 3
             selectSound.play()
     except:
         ()
@@ -318,6 +329,7 @@ def selecionarColuna(lista, listaColunas, nJogador, listaNomes):
         try:
             #Nota 1
             if somAtivo == True:
+                #Nota 3
                 optionSound.stop()
         except:
             ()
@@ -327,6 +339,7 @@ def selecionarColuna(lista, listaColunas, nJogador, listaNomes):
                 try:
                     #Nota 1
                     if somAtivo == True:
+                        #Nota 3
                         optionSound.play()
                 except:
                     ()
@@ -340,6 +353,7 @@ def selecionarColuna(lista, listaColunas, nJogador, listaNomes):
                 try:
                     #Nota 1
                     if somAtivo == True:
+                        #Nota 3
                         optionSound.play()
                 except:
                     ()   
@@ -356,6 +370,7 @@ def selecionarColuna(lista, listaColunas, nJogador, listaNomes):
             try:
                 #Nota 1
                 if somAtivo == True:
+                    #Nota 3
                     selectSound.stop()
                     selectSound.play()
             except:
@@ -383,12 +398,16 @@ def nomearJogadores(lista):
             lista.insert(i, 'Jogador {}'.format(i + 1))
         try:
             if somAtivo == True:
+                #Nota 3
                 selectSound.stop()
                 selectSound.play()
         except:
             ()
 
 def configurarSom():
+    '''
+    Esta função ativa ou desativa o som. (Ver Nota 3)
+    '''
     try:
         global somAtivo
         if somAtivo == True:
@@ -460,8 +479,13 @@ while True:
                 else:
                     print('{} vence!'.format(Fore.YELLOW + nomeJogador[jogador-1] + Style.RESET_ALL))
                 
-                if somAtivo == True:
-                    victorySound.play()
+                try:
+                    #Nota 1
+                    if somAtivo == True:
+                        #Nota 3
+                        victorySound.play()
+                except:
+                    ()
             elif empate ==  True:
                 print('Houve um empate.')
             gerarTabuleiro(tabuleiro, listaCoodernadas=coodernadasLinha)
@@ -475,6 +499,7 @@ while True:
             try:
                 #Nota 1
                 if somAtivo == True:
+                    #Nota 3
                     victorySound.stop()
             except:
                 ()
